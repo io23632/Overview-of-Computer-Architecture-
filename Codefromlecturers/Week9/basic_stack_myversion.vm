@@ -1,0 +1,17 @@
+push constant 64
+pop local 3
+push constant 256
+pop local 5
+push local 3 
+push constant 42 
+gt
+pop local 6
+push local 5
+push constant 100
+sub
+pop local 7
+push local 3
+push local 7
+lt
+push local 6
+and 
