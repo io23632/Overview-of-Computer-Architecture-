@@ -1,0 +1,75 @@
+// PsuedoCode:
+// while (true) {
+//    for (i = 0x4000; i < 0x5FFF; i++) {
+//          if (RAM[KBD] > 0) {
+//              RAM[i] =  0x0000
+//             }
+//           else {
+//                  RAM[i] = oxFFFF
+// }
+// }
+// }
+
+//Infitinie Loop
+label InfiniteLoop
+
+// Store i (which is 0x4000) in local 0
+push constant 16384
+pop local 0
+
+// Start ForLoop
+label ForLoop
+
+// Check conditional: i >0x5FFF then jump out of Loop
+
+push local 0 // stores i
+push constant 24575  // numerical value for 0x5FFF
+gt // evalute if i > 0x5FFF and removes i and 0x5FFF from stack
+if-goto EndForLoop
+
+// Loop Body
+
+// if RAM[KBD] <= 0 colour 0xFFFF to RAM[i] : jump to colourscreenblack
+// otherwise RAM[i] = 0x0000
+
+// push KBD onto stack
+push constant 24576 // KBD in numerical
+pop pointer 1 // 'that' (the memory segment) now contains RAM[24576]
+push that 0 // now 24576 is on the stack
+push constant 0
+gt // if RAM[KBD] > 0
+not // if RAM[KBD] <= 0
+// Stack now contains the result of if !(RAM[KBD] > 0 ) i.e
+// if RAM[KBD] <= 0
+if-goto colourscreenblack
+
+// Otherwise otherwise RAM[i] = 0x0000
+push local 0 // get i onto the stack
+pop pointer 1 // set it to pointer memory segment 1
+push constant 0 // pushes constant 0 onto the stack (0x0000)
+// set RAM[i] = 0x0000
+pop that 0
+goto EndIf
+
+label colourscreenblack
+push local 0
+pop pointer 1 // that 0 is now RAM[i]
+push constant 0
+not
+// stack now contains !0x0000 which is 0xFFFF
+pop that 0
+
+label EndIf
+
+// i++
+push local 0
+push constant 1
+add
+pop local 0
+
+// Loop
+goto ForLoop
+
+label EndForLoop
+
+goto InfiniteLoop
