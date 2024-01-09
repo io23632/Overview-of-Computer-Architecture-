@@ -1,0 +1,40 @@
+// 30 should be at the top 
+push constant 30
+// call the function with 1 argument 
+call sum_myversion.sum 1
+// the resutl of sum will be at the top here:
+pop temp 0 
+// have an infinite loop 
+label infiniteloop
+goto infiniteloop 
+
+// n is the first argument of the function, so argumen 0 will be the number we are summing to 
+function sum_myversion.sum 2 // at this moment we don't know how many local variables we will need, it is only after writing the code and then seeing how many 
+// local variables were used, e.g. in version of the code only 1 local variable was used. 
+// int i = 1 and store in local 0
+push constant 1
+pop local 0
+// int sum = 0 and store in local 1
+push constant 0
+pop local 1
+// Loop
+label LOOP 
+// if i > n go to LOOP_END
+push local 0
+push argument 0
+gt
+if-goto LOOP_END
+// sum = sum + i 
+push local 1
+push local 0
+add
+pop local 1
+//i = i + 1
+push local 0 
+push constant 1
+add
+pop local 0 
+goto LOOP
+label LOOP_END
+push local 1
+return // return sum 

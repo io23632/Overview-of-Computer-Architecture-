@@ -1,0 +1,35 @@
+// 30 should be at the top 
+push constant 30
+// call the function with 1 argument 
+call sum_lectureversion.sum 1
+// the resutl of sum will be at the top here:
+pop temp 0 
+// have an infinite loop 
+label infiniteloop
+goto infiniteloop
+// n is the first argument of the function, so argumen 0 will be the number we are summing to 
+function sum_lectureversion.sum 1 // at this moment we don't know how many local variables we will need, it is only after writing the code and then seeing how many 
+// local variables were used, e.g. in version of the code only 1 local variable was used. 
+push constant 1
+// let i = 2 // store in local 0
+push constant 2 
+pop local 0
+// while( i <= n)
+label LOOP
+// go to if i > n
+push local 0
+push argument 0
+gt 
+if-goto LOOP_END
+//push i 
+//add
+//i++
+push local 0
+add
+push constant 1
+push local 0
+add
+pop local 0
+goto LOOP
+label LOOP_END
+return
