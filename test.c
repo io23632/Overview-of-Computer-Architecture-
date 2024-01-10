@@ -10,6 +10,8 @@ int result = mult(5, 3);
 
 printf("%d\n", result);
 
+printf("%s", "test");
+
    return 0;
 }
 
