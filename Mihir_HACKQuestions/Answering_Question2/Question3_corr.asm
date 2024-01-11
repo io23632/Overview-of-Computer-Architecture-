@@ -83,8 +83,8 @@ M=0
 	@addr
 	M=D
 
-	// RAM[addr] = 0xAAAA
-	@43690
+	// RAM[addr] = 0xFF00
+	@65280
 	D=A
 	@addr
 	A=M
